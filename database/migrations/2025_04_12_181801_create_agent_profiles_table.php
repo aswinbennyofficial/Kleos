@@ -20,16 +20,23 @@ return new class extends Migration
             $table->string('country', 100)->nullable();
             $table->text('resume_url')->nullable();
             $table->boolean('is_available')->default(true);
-            $table->timestamps(0);
+            $table->timestamps();
+        });
+
+        // Migration for the agent_skill pivot table
+        Schema::create('agent_skill', function (Blueprint $table) {
+            $table->foreignId('agent_id')->constrained('agent_profiles')->onDelete('cascade');
+            $table->foreignId('skill_id')->constrained('skills')->onDelete('cascade');
+            $table->primary(['agent_id', 'skill_id']);
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
+        Schema::dropIfExists('agent_skill');
         Schema::dropIfExists('agent_profiles');
     }
 };

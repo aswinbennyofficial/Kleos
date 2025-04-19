@@ -10,7 +10,7 @@
     <nav>
         <ul>
             <li><a href="{{ route('agents.index') }}">View Agents</a></li>
-            <li><a href="{{ route('jobs.index') }}">View Job Posts</a></li>
+            {{-- <li><a href="{{ route('jobs.index') }}">View Job Posts</a></li> --}}
         </ul>
     </nav>
 </body>

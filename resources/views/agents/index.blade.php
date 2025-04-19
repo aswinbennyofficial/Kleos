@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Agents</title>
-</head>
-<body>
-    <h1>Agents List</h1>
+@extends('layouts.app')
+@section('content')
+    <h2>All Agents</h2>
     @foreach ($agents as $agent)
         <div>
-            <strong>Agent ID:</strong> {{ $agent->id }}<br>
-            <strong>Phone:</strong> {{ $agent->phone }}<br>
-            <strong>Category:</strong> {{ $agent->category }}<br>
-            <strong>Country:</strong> {{ $agent->country }}<br>
-            <hr>
+            <strong>{{ $agent->user->name }}</strong> - {{ $agent->category }} ({{ $agent->country }})
+            <br>Skills: {{ $agent->skills->pluck('name')->join(', ') }}
         </div>
     @endforeach
-</body>
-</html>
+@endsection

@@ -10,13 +10,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Agent Profile Routes
-Route::get('/agents', [AgentProfileController::class, 'index'])->name('agents.index');
-Route::get('/agents/{id}', [AgentProfileController::class, 'show'])->name('agents.show');
+Auth::routes();
 
-// Job Post Routes
-Route::get('/jobs', [JobPostController::class, 'index'])->name('jobs.index');
-Route::get('/jobs/{id}', [JobPostController::class, 'show'])->name('jobs.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/agents', [AgentProfileController::class, 'index'])->name('agents.index');
+    Route::get('/agents/edit', [AgentProfileController::class, 'edit'])->name('agents.edit');
+    Route::post('/agents/edit', [AgentProfileController::class, 'update'])->name('agents.update');
+});
+Auth::routes();
 
-// Application Routes
-Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

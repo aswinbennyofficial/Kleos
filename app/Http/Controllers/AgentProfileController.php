@@ -3,54 +3,61 @@
 namespace App\Http\Controllers;
 
 use App\Models\AgentProfile;
+use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AgentProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $agents = AgentProfile::all();
+        $skill = $request->query('skill');
+
+        $agents = AgentProfile::with('skills')
+            ->when($skill, fn($q) => $q->whereHas('skills', fn($q) => $q->where('name', $skill)))
+            ->get();
+
         return view('agents.index', compact('agents'));
     }
 
-    public function show($id)
+    public function edit()
     {
-        $agent = AgentProfile::findOrFail($id);
-        return view('agents.show', compact('agent'));
+        $agent = auth()->user()->agentProfile;
+
+        if (!$agent) {
+            $agent = \App\Models\AgentProfile::create([
+                'user_id' => auth()->id(),
+                'is_available' => true,
+            ]);
+        }
+
+        $agent->load('skills');
+        $skills = \App\Models\Skill::all();
+
+        return view('agents.edit', compact('agent', 'skills'));
     }
 
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        $data = $request->validate([
-            'phone' => 'required',
-            'yoe' => 'required|integer',
-            'category' => 'required|string',
-            'country' => 'required|string',
+        $request->validate([
+            'phone' => 'nullable|string|max:20',
+            'yoe' => 'nullable|integer|min:0',
+            'category' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
             'resume_url' => 'nullable|url',
+            'is_available' => 'required|boolean',
+            'skills' => 'nullable|array',
+            'skills.*' => 'exists:skills,id',
         ]);
 
-        $agentProfile = AgentProfile::create($data); // Create a new agent profile
-        return response()->json($agentProfile, 201);
-    }
+        $agent = AgentProfile::firstOrCreate(
+            ['user_id' => auth()->id()]
+        );
 
-    public function update(Request $request, $id)
-    {
-        $agentProfile = AgentProfile::findOrFail($id);
-        $data = $request->validate([
-            'phone' => 'required',
-            'yoe' => 'required|integer',
-            'category' => 'required|string',
-            'country' => 'required|string',
-            'resume_url' => 'nullable|url',
-        ]);
+        $agent->update($request->only(['phone', 'yoe', 'category', 'country', 'resume_url', 'is_available']));
 
-        $agentProfile->update($data); // Update the agent profile
-        return response()->json($agentProfile);
-    }
+        $agent->skills()->sync($request->input('skills', []));
 
-    public function destroy($id)
-    {
-        AgentProfile::destroy($id); // Delete the agent profile
-        return response()->json(['message' => 'Profile deleted successfully']);
+        return redirect()->route('agents.edit')->with('success', 'Profile updated successfully!');
     }
 }

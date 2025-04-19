@@ -13,9 +13,10 @@ class AgentProfile extends Model
         return $this->belongsTo(User::class);
     }
 
+    // Fixed the relationship with skills
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'agent_skill');
+        return $this->belongsToMany(Skill::class, 'agent_skill', 'agent_id', 'skill_id');
     }
 
     public function applications()
