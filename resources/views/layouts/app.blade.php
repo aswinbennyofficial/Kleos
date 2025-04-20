@@ -12,65 +12,240 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
     <style>
-        /* Custom navbar styles */
-        .navbar {
-            background: linear-gradient(45deg, #007bff, #0056b3);
-            border-radius: 5px;
-        }
+        /* Main color variables for easy updating */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #475569;
+  --accent-color: #06b6d4;
+  --success-color: #10b981;
+  --light-color: #f8fafc;
+  --dark-color: #1e293b;
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
 
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #fff !important;
-            transition: all 0.3s;
-        }
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f9fafb;
+  color: #334155;
+  line-height: 1.6;
+}
 
-        .navbar-brand:hover {
-            color: #f0f0f0 !important;
-            text-decoration: none;
-        }
+/* Enhanced Navbar Styles */
+.navbar {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  border-radius: 0;
+}
 
-        .nav-link {
-            color: #fff !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-        }
+.navbar-brand {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: white !important;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
 
-        .nav-link:hover {
-            color: #f0f0f0 !important;
-            background-color: #0056b3;
-            border-radius: 5px;
-        }
+.nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem 1.2rem;
+  margin: 0 0.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
 
-        .navbar-nav .nav-item + .nav-item {
-            margin-left: 15px;
-        }
+.nav-item a.btn {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
 
-        .navbar-toggler-icon {
-            background-color: #fff;
-        }
+.nav-item a.btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+}
 
-        /* Custom button styling */
-        .nav-item a.btn {
-            font-weight: bold;
-            padding: 8px 20px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            border: none;
-            color: white;
-            transition: all 0.3s ease;
-        }
+/* Container styling */
+.container {
+  padding: 2rem 1.5rem;
+  max-width: 1200px;
+}
 
-        .nav-item a.btn:hover {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            transform: scale(1.05);
-        }
+/* Card styling */
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+  background: white;
+}
 
-        /* Small screen padding */
-        .navbar-collapse {
-            padding-top: 10px;
-        }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  color: var(--secondary-color);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Badge styling */
+.badge {
+  padding: 0.5em 1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.bg-success {
+  background-color: var(--success-color) !important;
+  color: white;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color) !important;
+  color: white;
+}
+
+/* Filter section styling */
+.filter-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+  border-left: 5px solid var(--accent-color);
+}
+
+/* Form elements styling */
+input, select, textarea {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Button styling */
+.btn {
+  padding: 0.65rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 10px rgba(37, 99, 235, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border: none;
+}
+
+/* Animation for cards and elements */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .filter-section {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.4rem;
+  }
+  
+  .container {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Typography enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
+
+/* Utility classes */
+.text-primary { color: var(--primary-color) !important; }
+.text-accent { color: var(--accent-color) !important; }
+.border-primary { border-color: var(--primary-color) !important; }
+.bg-gradient-primary { 
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)) !important;
+  color: white;
+}
+        
     </style>
 </head>
 <body>
