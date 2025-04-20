@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('phone', 20)->nullable();
             $table->integer('yoe')->default(0); // Years of experience
-            $table->string('category', 100)->nullable();
+            $table->string('tagline', 100)->nullable();
             $table->string('country', 100)->nullable();
             $table->text('resume_url')->nullable();
             $table->boolean('is_available')->default(true);

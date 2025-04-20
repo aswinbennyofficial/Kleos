@@ -12,12 +12,21 @@ class AgentProfileController extends Controller
     public function index(Request $request)
     {
         $skill = $request->query('skill');
+        $country = $request->query('country');
+        $available = $request->query('available');
+        $yoe = $request->query('yoe');
 
-        $agents = AgentProfile::with('skills')
+        $agents = AgentProfile::with(['skills', 'user'])
             ->when($skill, fn($q) => $q->whereHas('skills', fn($q) => $q->where('name', $skill)))
+            ->when($country, fn($q) => $q->where('country', 'like', "%$country%"))
+            ->when($available !== null, fn($q) => $q->where('is_available', $available))
+            ->when($yoe, fn($q) => $q->where('yoe', '>=', $yoe))
+            ->latest()
             ->get();
 
-        return view('agents.index', compact('agents'));
+        $skills = Skill::all();
+
+        return view('agents.index', compact('agents', 'skills'));
     }
 
     public function edit()
@@ -42,7 +51,7 @@ class AgentProfileController extends Controller
         $request->validate([
             'phone' => 'nullable|string|max:20',
             'yoe' => 'nullable|integer|min:0',
-            'category' => 'nullable|string|max:100',
+            'tagline' => 'nullable|string|max:100',
             'country' => 'nullable|string|max:100',
             'resume_url' => 'nullable|url',
             'is_available' => 'required|boolean',
@@ -54,7 +63,8 @@ class AgentProfileController extends Controller
             ['user_id' => auth()->id()]
         );
 
-        $agent->update($request->only(['phone', 'yoe', 'category', 'country', 'resume_url', 'is_available']));
+        $agent->update($request->only(['phone', 'yoe', 'tagline', 'country', 'resume_url', 'is_available']));
+
 
         $agent->skills()->sync($request->input('skills', []));
 

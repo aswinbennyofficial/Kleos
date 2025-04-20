@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgentProfile extends Model
 {
-    protected $fillable = ['user_id', 'phone', 'yoe', 'category', 'country', 'resume_url', 'is_available'];
+    protected $fillable = ['user_id', 'phone', 'yoe', 'tagline', 'country', 'resume_url', 'is_available'];
+
 
     public function user()
     {
