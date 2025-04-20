@@ -21,4 +21,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(RecruiterProfile::class);
     }
+
+    public function isRecruiter()
+    {
+        return $this->role === 'recruiter';
+    }
 }

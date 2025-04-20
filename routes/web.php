@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgentProfileController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\RecruiterProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,11 +13,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/recruiter/edit', [RecruiterProfileController::class, 'edit'])->name('recruiter.edit');
+    Route::put('/recruiter/update', [RecruiterProfileController::class, 'update'])->name('recruiter.update');
+});
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/agents', [AgentProfileController::class, 'index'])->name('agents.index');
     Route::get('/agents/edit', [AgentProfileController::class, 'edit'])->name('agents.edit');
     Route::post('/agents/edit', [AgentProfileController::class, 'update'])->name('agents.update');
 });
+
+
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

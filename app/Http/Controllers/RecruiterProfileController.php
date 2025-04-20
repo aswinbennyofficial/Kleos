@@ -1,52 +1,42 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Models\RecruiterProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\RecruiterProfile;
 
 class RecruiterProfileController extends Controller
 {
-    public function index()
+    public function edit()
     {
-        return RecruiterProfile::all(); // Retrieve all recruiter profiles
+        // If the recruiter profile doesn't exist, create a new instance
+        $recruiterProfile = Auth::user()->recruiterProfile ?? new RecruiterProfile();
+        return view('recruiter.edit', compact('recruiterProfile'));
     }
 
-    public function show($id)
+    public function update(Request $request)
     {
-        return RecruiterProfile::findOrFail($id); // Retrieve a specific recruiter profile
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'company_name' => 'required|string',
-            'contact_number' => 'nullable|string',
-            'industry' => 'nullable|string',
-            'country' => 'nullable|string',
+        // Validate the incoming request based on the actual schema
+        $request->validate([
+            'company_name' => 'required|string|max:100',
+            'contact_number' => 'nullable|string|max:20',
+            'industry' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
         ]);
 
-        $recruiterProfile = RecruiterProfile::create($data); // Create new recruiter profile
-        return response()->json($recruiterProfile, 201);
-    }
+        // Get or create the recruiter profile
+        $profile = Auth::user()->recruiterProfile ?? new RecruiterProfile();
 
-    public function update(Request $request, $id)
-    {
-        $recruiterProfile = RecruiterProfile::findOrFail($id);
-        $data = $request->validate([
-            'company_name' => 'required|string',
-            'contact_number' => 'nullable|string',
-            'industry' => 'nullable|string',
-            'country' => 'nullable|string',
-        ]);
+        // Update or create the profile fields
+        $profile->user_id = Auth::id(); // Make sure the profile belongs to the current user
+        $profile->company_name = $request->input('company_name');
+        $profile->contact_number = $request->input('contact_number');
+        $profile->industry = $request->input('industry');
+        $profile->country = $request->input('country');
+        
+        // Save the profile (this will either update an existing one or create a new one)
+        $profile->save();
 
-        $recruiterProfile->update($data); // Update recruiter profile
-        return response()->json($recruiterProfile);
-    }
-
-    public function destroy($id)
-    {
-        RecruiterProfile::destroy($id); // Delete recruiter profile
-        return response()->json(['message' => 'Profile deleted successfully']);
+        // Redirect back with success message - changed to match the agents pattern
+        return redirect()->route('recruiter.edit')->with('success', 'Recruiter profile updated successfully!');
     }
 }

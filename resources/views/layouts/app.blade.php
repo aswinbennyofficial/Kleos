@@ -466,11 +466,10 @@ body {
                                 <i class="fas fa-users"></i> Browse Agents
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn" href="{{ route('agents.edit') }}">
-                                <i class="fas fa-user-edit"></i> Edit My Profile
-                            </a>
-                        </li>
+                        <a class="nav-link btn" href="{{ Auth::user()->role === 'recruiter' ? url('/recruiter/edit') : url('/agents/edit') }}">
+                            <i class="fas fa-user-edit"></i> Edit My Profile
+                        </a>
+                        
                         <li class="nav-item">
                             <a class="nav-link btn" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
