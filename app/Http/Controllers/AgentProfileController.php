@@ -17,6 +17,7 @@ class AgentProfileController extends Controller
         $yoe = $request->query('yoe');
 
         $agents = AgentProfile::with(['skills', 'user'])
+            ->whereHas('user', fn($q) => $q->where('role', 'agent'))
             ->when($skill, fn($q) => $q->whereHas('skills', fn($q) => $q->where('name', $skill)))
             ->when($country, fn($q) => $q->where('country', 'like', "%$country%"))
             ->when($available !== null, fn($q) => $q->where('is_available', $available))

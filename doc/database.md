@@ -17,7 +17,7 @@ CREATE TABLE agent_profiles (
     user_id INTEGER UNIQUE REFERENCES users(id) ON DELETE CASCADE,
     phone VARCHAR(20),
     yoe INTEGER DEFAULT 0, -- years of experience
-    category VARCHAR(100), -- e.g., Sales, Customer Service, Marketing
+    tagline VARCHAR(100), -- e.g., Sales, Customer Service, Marketing
     country VARCHAR(100),
     resume_url TEXT,
     is_available BOOLEAN DEFAULT TRUE,
