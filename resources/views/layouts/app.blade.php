@@ -449,10 +449,10 @@ body {
         <div class="container-fluid">
             <!-- App name with link to home (only if logged in) -->
             <a class="navbar-brand" href="{{ Auth::check() ? route('home') : '#' }}">
-               <b> {{ config('app.name', 'AgentConnect') }} </b>
+               <b> Kleos </b>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNa? We got you covered!v"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
