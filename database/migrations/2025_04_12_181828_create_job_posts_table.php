@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recruiter_id')->constrained('recruiter_profiles')->onDelete('cascade');
+            $table->foreignId('recruiter_id')->constrained('users')->onDelete('cascade');
+
             $table->string('title', 150);
             $table->text('description');
             $table->string('category', 100)->nullable(); // Matches agent category
+            $table->string('country', 100)->nullable();
             $table->string('location', 100)->nullable();
             $table->timestamps(0);
+            $table->enum('experience_level', ['Intern','Entry', 'Mid', 'Senior'])->nullable();
+            $table->decimal('salary', 10, 2)->nullable();
         });
     }
 

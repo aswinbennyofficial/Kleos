@@ -26,4 +26,10 @@ class User extends Authenticatable
     {
         return $this->role === 'recruiter';
     }
+
+    // public function jobPosts()
+    // {
+    //     return $this->hasMany(JobPost::class, 'recruiter_id');
+    // }
+
 }

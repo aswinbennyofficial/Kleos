@@ -7,6 +7,7 @@ use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\RecruiterProfileController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,6 +25,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/agents/edit', [AgentProfileController::class, 'edit'])->name('agents.edit');
     Route::post('/agents/edit', [AgentProfileController::class, 'update'])->name('agents.update');
 });
+
+
+Route::get('/recruiter/jobs', [JobPostController::class, 'index'])->name('jobs.index');
+Route::get('/recruiter/jobs/create', [JobPostController::class, 'create'])->name('jobs.create');
+Route::post('/recruiter/jobs', [JobPostController::class, 'store'])->name('jobs.store');
+
+Route::get('/recruiter/jobs/{job}/edit', [JobPostController::class, 'edit'])->name('jobs.edit');
+Route::put('/recruiter/jobs/{job}', [JobPostController::class, 'update'])->name('jobs.update');
+Route::delete('/recruiter/jobs/{job}', [JobPostController::class, 'destroy'])->name('jobs.destroy');
 
 
 

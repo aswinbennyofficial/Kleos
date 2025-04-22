@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobPost extends Model
 {
-    protected $fillable = ['recruiter_id', 'title', 'description', 'category', 'location'];
+    protected $fillable = [
+        'recruiter_id', 'title', 'description', 'category',
+        'location', 'country', 'experience_level', 'salary'
+    ];
 
     public function recruiter()
     {
-        return $this->belongsTo(RecruiterProfile::class, 'recruiter_id');
+        return $this->belongsTo(User::class, 'recruiter_id');
     }
 
     public function skills()
