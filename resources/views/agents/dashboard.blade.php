@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -28,13 +29,8 @@
                         <h4>Edit Your Profile</h4>
                         <p>Update your experience, skills, and availability to attract the right opportunities.</p>
                         <a href="{{ route('agents.edit') }}" class="btn btn-primary mt-3 align-items-center">
-                            {{-- <i class="fas fa-pencil-alt me-2 text-white"></i>  --}} Manage Profile
+                            Manage Profile
                         </a>
-
-                        {{-- <a href="{{ route('agents.edit') }}" class="btn btn-primary mt-3 align-items-center">
-                            <i class="fas fa-pencil-alt me-2 text-white"></i> <span class="text-white">Manage Profile</span>
-                        </a> --}}
-                        
                     </div>
                 </div>
                 
@@ -45,7 +41,18 @@
                         <p>Discover talent, connect with peers, and build your professional network.</p>
                         <a href="{{ route('agents.index') }}" class="btn btn-success mt-3 align-items-center">
                              Find Talent
-                             {{-- <i class="fas fa-search me-2 text-white"></i> --}}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Add the job applications section -->
+                <div class="col-md-6 mb-4">
+                    <div class="dashboard-action info h-100">
+                        <i class="fas fa-briefcase"></i>
+                        <h4>View Job Applications</h4>
+                        <p>Check the job applications you have submitted and their current status.</p>
+                        <a href="{{ route('agent.jobs.index') }}" class="btn btn-info mt-3 align-items-center">
+                             View Applications
                         </a>
                     </div>
                 </div>

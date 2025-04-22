@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
+// for recruiters
 Route::get('/recruiter/jobs', [JobPostController::class, 'index'])->name('jobs.index');
 Route::get('/recruiter/jobs/create', [JobPostController::class, 'create'])->name('jobs.create');
 Route::post('/recruiter/jobs', [JobPostController::class, 'store'])->name('jobs.store');
@@ -35,6 +36,12 @@ Route::get('/recruiter/jobs/{job}/edit', [JobPostController::class, 'edit'])->na
 Route::put('/recruiter/jobs/{job}', [JobPostController::class, 'update'])->name('jobs.update');
 Route::delete('/recruiter/jobs/{job}', [JobPostController::class, 'destroy'])->name('jobs.destroy');
 
+
+
+// for agents
+Route::get('jobs', [ApplicationController::class, 'index'])->name('agent.jobs.index');
+Route::post('jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('agent.jobs.apply');
+Route::get('jobs/filter', [ApplicationController::class, 'filter'])->name('agent.jobs.filter');
 
 
 
