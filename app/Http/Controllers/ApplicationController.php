@@ -19,6 +19,9 @@ class ApplicationController extends Controller
         $categories = ['Communication', 'Sales', 'Marketing', 'Problem Solving', 'Customer Service', 'Technical Support'];
         $countries = ['India', 'USA', 'UK', 'Canada', 'Germany', 'Australia', 'Brazil', 'France', 'Japan', 'Other'];
 
+        $agentId = Auth::id();
+        $appliedJobIds = Application::where('agent_id', $agentId)->pluck('job_id')->toArray();
+
         // Filters
         if ($request->filled('category')) {
             $query->where('category', $request->category);
@@ -32,17 +35,18 @@ class ApplicationController extends Controller
             $query->where('experience_level', $request->experience_level);
         }
 
-        // Applied filter
-        $agentId = Auth::id();
-        if ($request->filled('applied') && $request->applied == '1') {
-            $appliedJobIds = Application::where('agent_id', $agentId)->pluck('job_id')->toArray();
-            $query->whereIn('id', $appliedJobIds);
+        // Applied filter: 1 = show only applied, 0 = hide applied
+        if ($request->filled('applied')) {
+            if ($request->applied === '1') {
+                $query->whereIn('id', $appliedJobIds);
+            } elseif ($request->applied === '0') {
+                $query->whereNotIn('id', $appliedJobIds);
+            }
         }
 
         $jobs = $query->get();
-        $appliedJobs = Application::where('agent_id', $agentId)->pluck('job_id')->toArray();
 
-        return view('agents.jobs.index', compact('jobs', 'categories', 'countries', 'appliedJobs'));
+        return view('agents.jobs.index', compact('jobs', 'categories', 'countries', 'appliedJobIds'));
     }
 
     public function apply(Request $request, JobPost $job)
@@ -81,6 +85,7 @@ class ApplicationController extends Controller
         }
 
         $applications = Application::where('agent_id', Auth::id())->with('job')->get();
+
         return view('agents.jobs.applications', compact('applications'));
     }
 }

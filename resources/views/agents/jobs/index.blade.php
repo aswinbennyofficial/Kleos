@@ -36,13 +36,18 @@
 
             <div class="col-md-2">
                 <select name="applied" class="form-control">
-                    <option value="">All Jobs</option>
+                    <option value="">Show All</option>
                     <option value="1" {{ request('applied') == '1' ? 'selected' : '' }}>Only Applied</option>
+                    <option value="0" {{ request('applied') == '0' ? 'selected' : '' }}>Hide Applied</option>
                 </select>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <button class="btn btn-primary w-100">Filter</button>
+            </div>
+
+            <div class="col-md-1">
+                <a href="{{ route('agent.jobs.index') }}" class="btn btn-secondary w-100">Reset</a>
             </div>
         </div>
     </form>
@@ -60,7 +65,7 @@
                     <p><strong>Experience Level:</strong> {{ $job->experience_level }}</p>
                     <p><strong>Salary:</strong> {{ $job->salary ?? 'Not specified' }}</p>
 
-                    @if (in_array($job->id, $appliedJobs))
+                    @if (in_array($job->id, $appliedJobIds))
                         <button class="btn btn-secondary" disabled>Already Applied</button>
                     @else
                         <form method="POST" action="{{ route('agent.jobs.apply', $job->id) }}">
