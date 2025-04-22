@@ -36,6 +36,9 @@ Route::get('/recruiter/jobs/{job}/edit', [JobPostController::class, 'edit'])->na
 Route::put('/recruiter/jobs/{job}', [JobPostController::class, 'update'])->name('jobs.update');
 Route::delete('/recruiter/jobs/{job}', [JobPostController::class, 'destroy'])->name('jobs.destroy');
 
+Route::get('/recruiter/applications', [ApplicationController::class, 'showApplicationsForRecruiter'])->name('recruiter.applications');
+Route::put('/recruiter/applications/{application}', [ApplicationController::class, 'updateApplicationStatus'])->name('recruiter.update-status');
+
 
 
 // for agents

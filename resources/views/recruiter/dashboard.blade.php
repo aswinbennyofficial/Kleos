@@ -26,8 +26,16 @@
         <div class="col-md-6 mb-4">
             <div class="dashboard-action primary h-100">
                 <i class="fas fa-briefcase"></i>
-                <h4>Manage Job Applications</h4>
+                <h4>Manage Job Postings</h4>
                 <a href="{{ route('jobs.index') }}" class="btn btn-success mt-3">Manage Job Applications</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="dashboard-action primary h-100">
+                <i class="fas fa-briefcase"></i>
+                <h4>Manage Job Applications</h4>
+                <a href="{{ route('recruiter.applications') }}" class="btn btn-success mt-3">Manage Recruiter Applications</a>
             </div>
         </div>
     </div>

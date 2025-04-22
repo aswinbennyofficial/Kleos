@@ -88,4 +88,36 @@ class ApplicationController extends Controller
 
         return view('agents.jobs.applications', compact('applications'));
     }
+
+
+    public function showApplicationsForRecruiter(Request $request)
+    {
+        if (!Auth::check() || Auth::user()->role !== 'recruiter') {
+            abort(403, 'Unauthorized access');
+        }
+
+        // Get all job applications for the recruiter, eager load 'job' and 'agent'
+        $applications = Application::with('job', 'agent')->get(); // Can be paginated or filtered
+
+        return view('recruiter.applications.index', compact('applications'));
+    }
+
+    // Update application status for a recruiter
+    public function updateApplicationStatus(Request $request, Application $application)
+    {
+        if (!Auth::check() || Auth::user()->role !== 'recruiter') {
+            abort(403, 'Unauthorized access');
+        }
+
+        $request->validate([
+            'status' => 'required|in:pending,accepted,rejected',
+        ]);
+
+        // Update the status of the application
+        $application->status = $request->status;
+        $application->save();
+
+        return back()->with('success', 'Application status updated successfully');
+    }
+
 }
