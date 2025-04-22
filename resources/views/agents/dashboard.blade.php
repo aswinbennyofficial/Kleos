@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-6 mb-4">
+                {{-- <div class="col-md-6 mb-4">
                     <div class="dashboard-action success h-100">
                         <i class="fas fa-users"></i>
                         <h4>Browse Agents</h4>
@@ -43,7 +43,7 @@
                              Find Talent
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Add the job applications section -->
                 <div class="col-md-6 mb-4">

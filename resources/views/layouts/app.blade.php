@@ -461,11 +461,14 @@ body {
                 <ul class="navbar-nav ms-auto">
                     <!-- If logged in, show user-specific links -->
                     @if (Auth::check())
+
+                      @if (Auth::user()->role === 'recruiter')
                         <li class="nav-item">
                             <a class="nav-link btn" href="{{ route('agents.index') }}">
                                 <i class="fas fa-users"></i> Browse Agents
                             </a>
                         </li>
+                      @endif
                         <a class="nav-link btn" href="{{ Auth::user()->role === 'recruiter' ? url('/recruiter/edit') : url('/agents/edit') }}">
                             <i class="fas fa-user-edit"></i> Edit My Profile
                         </a>
