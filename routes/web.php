@@ -39,9 +39,13 @@ Route::delete('/recruiter/jobs/{job}', [JobPostController::class, 'destroy'])->n
 
 
 // for agents
-Route::get('jobs', [ApplicationController::class, 'index'])->name('agent.jobs.index');
-Route::post('jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('agent.jobs.apply');
-Route::get('jobs/filter', [ApplicationController::class, 'filter'])->name('agent.jobs.filter');
+// Route::get('jobs', [ApplicationController::class, 'index'])->name('agent.jobs.index');
+// Route::post('/agent/jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('agent.jobs.apply');
+// Route::get('jobs/filter', [ApplicationController::class, 'filter'])->name('agent.jobs.filter');
+
+Route::get('/agent/jobs', [ApplicationController::class, 'index'])->name('agent.jobs.index');
+Route::post('/agent/jobs/{job}/apply', [ApplicationController::class, 'apply'])->name('agent.jobs.apply');
+Route::get('/agent/applications', [ApplicationController::class, 'myApplications'])->name('agent.jobs.applications');
 
 
 

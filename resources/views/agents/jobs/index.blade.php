@@ -5,10 +5,9 @@
     <h3>Available Job Posts</h3>
 
     <!-- Filter form -->
-    <form method="GET" action="{{ route('agent.jobs.filter') }}">
+    <form method="GET" action="{{ route('agent.jobs.index') }}">
         <div class="row g-3">
-            <!-- Category dropdown -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select name="category" class="form-control">
                     <option value="">Select Category</option>
                     @foreach ($categories as $category)
@@ -17,8 +16,7 @@
                 </select>
             </div>
 
-            <!-- Location dropdown -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select name="country" class="form-control">
                     <option value="">Select Country</option>
                     @foreach ($countries as $country)
@@ -27,21 +25,25 @@
                 </select>
             </div>
 
-            <!-- Experience level dropdown -->
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <select name="experience_level" class="form-control">
-                    <option value="">Select Experience Level</option>
-                    <option value="Intern" {{ request('experience_level') == 'Intern' ? 'selected' : '' }}>Intern</option>
-                    <option value="Entry" {{ request('experience_level') == 'Entry' ? 'selected' : '' }}>Entry</option>
-                    <option value="Mid" {{ request('experience_level') == 'Mid' ? 'selected' : '' }}>Mid</option>
-                    <option value="Senior" {{ request('experience_level') == 'Senior' ? 'selected' : '' }}>Senior</option>
+                    <option value="">Experience</option>
+                    @foreach(['Intern', 'Entry', 'Mid', 'Senior'] as $level)
+                        <option value="{{ $level }}" {{ request('experience_level') == $level ? 'selected' : '' }}>{{ $level }}</option>
+                    @endforeach
                 </select>
             </div>
-        </div>
 
-        <div class="mt-3">
-            <button class="btn btn-primary">Filter Jobs</button>
-            <a href="{{ route('agent.jobs.index') }}" class="btn btn-secondary">Reset</a>
+            <div class="col-md-2">
+                <select name="applied" class="form-control">
+                    <option value="">All Jobs</option>
+                    <option value="1" {{ request('applied') == '1' ? 'selected' : '' }}>Only Applied</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">Filter</button>
+            </div>
         </div>
     </form>
 
@@ -58,18 +60,12 @@
                     <p><strong>Experience Level:</strong> {{ $job->experience_level }}</p>
                     <p><strong>Salary:</strong> {{ $job->salary ?? 'Not specified' }}</p>
 
-
-                    @php
-                        $existingApplication = \App\Models\Application::where('agent_id', Auth::id())
-                                                                    ->where('job_id', $job->id)
-                                                                    ->first();
-                    @endphp
-
-                    @if ($existingApplication)
+                    @if (in_array($job->id, $appliedJobs))
                         <button class="btn btn-secondary" disabled>Already Applied</button>
                     @else
                         <form method="POST" action="{{ route('agent.jobs.apply', $job->id) }}">
                             @csrf
+                            <input type="hidden" name="status" value="pending">
                             <button class="btn btn-success">Apply</button>
                         </form>
                     @endif
@@ -78,6 +74,10 @@
         @empty
             <div class="alert alert-info">No jobs found.</div>
         @endforelse
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ route('agent.jobs.applications') }}" class="btn btn-outline-primary">View My Applied Jobs</a>
     </div>
 </div>
 @endsection
