@@ -95,10 +95,11 @@ class ApplicationController extends Controller
         if (!Auth::check() || Auth::user()->role !== 'recruiter') {
             abort(403, 'Unauthorized access');
         }
-
-        // Get all job applications for the recruiter, eager load 'job' and 'agent'
-        $applications = Application::with('job', 'agent')->get(); // Can be paginated or filtered
-
+        
+        // Explicitly load the agent and agentProfile relationships
+        $applications = Application::with(['job', 'agent.agentProfile'])->get();
+        
+        
         return view('recruiter.applications.index', compact('applications'));
     }
 

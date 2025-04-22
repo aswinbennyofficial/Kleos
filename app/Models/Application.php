@@ -16,6 +16,12 @@ class Application extends Model
         return $this->belongsTo(User::class, 'agent_id');
     }
 
+    public function agentProfile()
+    {
+        return $this->agent->agentProfile();
+    }
+
+
     // public function job()
     // {
     //     return $this->belongsTo(JobPost::class, 'job_id');

@@ -17,6 +17,8 @@ class User extends Authenticatable
         return $this->hasOne(AgentProfile::class);
     }
 
+    
+
     public function recruiterProfile()
     {
         return $this->hasOne(RecruiterProfile::class);
