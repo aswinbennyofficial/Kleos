@@ -24,7 +24,7 @@
             <!-- Action cards -->
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="dashboard-action primary h-100">
+                    <div class="dashboard-action success h-100">
                         <i class="fas fa-user-edit"></i>
                         <h4>Edit Your Profile</h4>
                         <p>Update your experience, skills, and availability to attract the right opportunities.</p>
@@ -39,7 +39,7 @@
                         <i class="fas fa-users"></i>
                         <h4>Browse Agents</h4>
                         <p>Discover talent, connect with peers, and build your professional network.</p>
-                        <a href="{{ route('agents.index') }}" class="btn btn-success mt-3 align-items-center">
+                        <a href="{{ route('agents.index') }}" class="btn btn-primary mt-3 align-items-center">
                              Find Talent
                         </a>
                     </div>
@@ -47,17 +47,29 @@
 
                 <!-- Add the job applications section -->
                 <div class="col-md-6 mb-4">
-                    <div class="dashboard-action info h-100">
+                    <div class="dashboard-action success h-100">
                         <i class="fas fa-briefcase"></i>
-                        <h4>View Job Applications</h4>
+                        <h4>Job Opening</h4>
                         <p>Check the job applications you have submitted and their current status.</p>
-                        <a href="{{ route('agent.jobs.index') }}" class="btn btn-info mt-3 align-items-center">
+                        <a href="{{ route('agent.jobs.index') }}" class="btn btn-primary mt-3 align-items-center">
                              View Applications
                         </a>
                     </div>
                 </div>
-            </div>
             
+            
+                <div class="col-md-6 mb-4">
+                    <div class="dashboard-action success h-100">
+                        <i class="fas fa-tasks"></i>
+                        <h4>Check Application Status</h4>
+                        <p>Track the progress of the jobs you’ve applied to and stay updated.</p>
+                        <a href="{{ route('agent.jobs.applications') }}" class="btn btn-primary mt-3 align-items-center">
+                            Job Status
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Status card -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
