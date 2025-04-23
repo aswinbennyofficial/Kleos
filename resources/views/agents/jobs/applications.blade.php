@@ -60,7 +60,7 @@
                 <!-- Modal for job details -->
                 <div class="modal fade" id="jobModal{{ $application->id }}" tabindex="-1" aria-labelledby="jobModalLabel{{ $application->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
+                        <div class="modal-content" style="padding:20px">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="jobModalLabel{{ $application->id }}">{{ $application->job->title }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -86,7 +86,7 @@
                                         <div class="p-3 rounded" style="background-color: rgba(0,0,0,0.05);">
                                             <div class="d-flex align-items-center">
                                                 @if($application->status === 'pending')
-                                                    <div class="d-inline-block me-2" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--warning); display: flex; align-items: center; justify-content: center;">
+                                                    <div class=" me-2" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--warning); display: flex; align-items: center; justify-content: center;">
                                                         <i class="fas fa-hourglass-half text-white"></i>
                                                     </div>
                                                     <div>
@@ -94,7 +94,7 @@
                                                         <small class="text-muted">Your application is being reviewed</small>
                                                     </div>
                                                 @elseif($application->status === 'accepted')
-                                                    <div class="d-inline-block me-2" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--success); display: flex; align-items: center; justify-content: center;">
+                                                    <div class=" me-2" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--success); display: flex; align-items: center; justify-content: center;">
                                                         <i class="fas fa-check text-white"></i>
                                                     </div>
                                                     <div>
