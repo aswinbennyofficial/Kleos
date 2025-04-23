@@ -41,6 +41,13 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="salary" class="form-label">Salary (Optional)</label>
+                            <input type="number" class="form-control" id="salary" name="salary" min="0" step="any"
+                                value="{{ old('salary', isset($job) ? $job->salary : '') }}">
+                            <div class="form-text text-muted">Enter salary in numbers only, leave empty if not applicable.</div>
+                        </div>
                         
                         <div class="mb-3">
                             <label for="experience_level" class="form-label">Select Experience Level</label>

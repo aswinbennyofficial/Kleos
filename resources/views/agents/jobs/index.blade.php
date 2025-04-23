@@ -119,7 +119,9 @@
                         <div class="modal-body">
                             <div class="mb-4">
                                 <h6 class="fw-bold text-primary"><i class="fas fa-file-alt me-2"></i>Job Description</h6>
-                                <p>{{ $job->description }}</p>
+                                {{-- <p>{{ $job->description }}</p> --}}
+                                <p>{!! nl2br(e($job->description)) !!}</p>
+
                             </div>
                             
                             <div class="row mb-4">
